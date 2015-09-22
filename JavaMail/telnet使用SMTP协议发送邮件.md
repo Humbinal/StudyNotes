@@ -5,7 +5,7 @@
 
 	telnet smtp.126.com 25     #telnet登录25端口
 	220 126.com Anti-spam GT for Coremail System (126com[20140526])  #服务器返回此行表示连接成功
-	elho hello        #跟服务器握手此步可能失败 重新发送便可成功返回如下
+	ehlo hello        #跟服务器握手此步可能失败 重新发送便可成功返回如下
 	250-mail
 	250-PIPELINING
 	250-AUTH LOGIN PLAIN
