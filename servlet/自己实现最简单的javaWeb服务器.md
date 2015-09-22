@@ -1,5 +1,6 @@
 目前流行的Web服务器有很多，但是web服务器是如何实现的呢？对于这个问题web开发者关注的并不多。其实一个简单的web服务器的实现并不是十分复杂的。使用java基础知识可以简单的实现一个来了解复杂的web服务器背后的技术原理。
 下面是代码：
+
 	import java.io.*;
 	import java.net.*;
 	public class WebServer{
