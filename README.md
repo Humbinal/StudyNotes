@@ -1,5 +1,5 @@
-# J2ee_Study
-The study notes about j2ee.
+# StudyNotes
+This is my study notes about development.
 
 ##notes.
 
