@@ -51,7 +51,7 @@ Context的其他属性：
 	<Engine name="Catalina" defaultHost="主机名">
 
 8.☆servlet的生命周期(工作原理)
-![](images/servletLife.png)
+![](images/serlvetLife.png)
 
 servlet的生命周期(工作流程)
 
