@@ -45,5 +45,54 @@ Referer的应用(防盗链):
 		return;
 	}
 
+##4.http响应
+基本结构:
+![](images/httpResponse.png)
+
+1.状态行：
+格式：HTTP版本号 状态码 状态描述
+举例：HTTP/1.1 200 OK
+状态码			含义
+100-199		表示成功接收请求，要求客户端继续提交下一次请求才能完成整个处理过程
+200-299		表示成功接收请求并完成整个处理过程，常用200
+300-399		为完成请求，客户需要进行一步细化请求。例如：请求的资源已经移动一个新的地址，常用302,307
+400-499		客户端的请求有错误 404
+500-599		服务器端出现错误，常用500
+
+http响应的状态行举例说明
+200 就是整个请求和响应过程没有发生错误，这个最常见.
+302: 表示当你请求一个资源的时候，服务器返回302 表示，让浏览器转向到另外一个资源，比如: response.sendRedirect(“/web应用/资源名”)
+
+案例:
+	response.setStatus(302);
+	response.setHeader("Location", "/servletPro/Servlet2");
+	// 上面两句话等价	response.sendRedirect("/servletPro/Servlet2");
+
+404： 找不到资源
+500: 服务器端错误
+
+2.http响应消息头
+	Location: http://www.baidu.org/index.jsp  【让浏览器重新定位到url】
+	Server:apache tomcat 【告诉浏览器我是tomcat】
+	Content-Encoding: gzip 【告诉浏览器我使用 gzip】
+	Content-Length: 80  【告诉浏览器会送的数据大小80节】
+	Content-Language: zh-cn 【支持中文】
+	Content-Type: text/html; charset=GB2312 [内容格式text/html; 编码gab2312]
+	Last-Modified: Tue, 11 Jul 2000 18:23:51 GMT 【告诉浏览器，该资源上次更新时间】
+	Refresh: 1;url=http://www.baidu.com 【过多久去，刷新到 http://www.baidu.com】
+	Content-Disposition: attachment; filename=aaa.zip 【告诉浏览器，有文件下载】
+	Transfer-Encoding: chunked  [传输的编码]
+	Set-Cookie:SS=Q0=5Lb_nQ; path=/search[后面详讲]
+	Expires: -1[告诉浏览器如何缓存页面IE]
+	Cache-Control: no-cache  [告诉浏览器如何缓存页面火狐]
+	Pragma: no-cache   [告诉浏览器如何缓存页面]
+	Connection: close/Keep-Alive   [保持连接 1.1是Keep-Alive]
+	Date: Tue, 11 Jul 2000 18:23:51 GMT
+
+
+
+
+
+
 
 
