@@ -89,7 +89,43 @@ http响应的状态行举例说明
 	Connection: close/Keep-Alive   [保持连接 1.1是Keep-Alive]
 	Date: Tue, 11 Jul 2000 18:23:51 GMT
 
+①.定时刷新Refresh
+	
+	response.setHeader("Refresh", "5;url=/servlet/Servlet2");
 
+②.下载文件
+		
+	response.setHeader("Content-Disposition", "attachment; filename=test.jpg");		
+	//打开文件.
+	//1.获取到要下载文件的全路径
+	String path=this.getServletContext().getRealPath("/images/test.jpg");
+	//System.out.println("path="+path);
+	//2创建文件输入流
+	FileInputStream fis=new FileInputStream(path);
+	//做一个缓冲字节数组
+	byte buff[]=new byte[1024];
+	int len=0;//表示实际每次读取了多个个字节
+	OutputStream os=response.getOutputStream();
+	while((len=fis.read(buff))>0){
+		
+		os.write(buff, 0, len);
+	}		
+	//关闭
+	os.close();
+	fis.close();
+
+③.缓存
+浏览器默认情况下，会缓存我们的页面，这样出现一个问题：如果我们的用户习惯把光标停留在地址栏，然后回车来取页面，就会默认调用cache中取数据。
+（1）有些网站要求及时性很高，因此要求我们不缓存页面
+代码：
+//指定该页面不缓存
+	
+	response.setDateHeader("Expires", -1);【针对IE浏览器设置不缓存】
+	response.setHeader("Cache-Control", "no-cache");【针对火狐浏览器等】
+	response.setHeader("Pragma", "no-cache");【其他浏览器】
+	
+（2）有些网站要求网页缓存一定时间,比如缓存一个小时
+	response.setDateHeader("Expires", System.currentTimeMillis()+3600*1000);后面一个参数表示设置的缓存保持时间，-1表示永远缓存
 
 
 
