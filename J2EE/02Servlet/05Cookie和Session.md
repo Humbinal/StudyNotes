@@ -108,3 +108,70 @@ session 可以存放对象
 session.setAttribute(“name”,val) , 如果名字重复，则会替换该属性.
 如果同一个用户浏览器，向session设置一个属性的时候，如果名字相同了，会替换该对象值.
 
+验证码功能
+使用(原理是使用到java的绘图技术.)
+这里最重要的就是生成验证码的servlet
+
+	package com.test;
+	import java.awt.Color;
+	import java.awt.Font;
+	import java.awt.Graphics;
+	import java.awt.image.BufferedImage;
+	import java.io.IOException;
+	import java.io.PrintWriter;
+	import java.util.Random;
+	import javax.imageio.ImageIO;
+	import javax.servlet.ServletException;
+	import javax.servlet.http.HttpServlet;
+	import javax.servlet.http.HttpServletRequest;
+	import javax.servlet.http.HttpServletResponse;
+	public class CreateCode extends HttpServlet {
+		public void doGet(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			// 7.禁止浏览器缓存随机图片
+			response.setDateHeader("Expires", -1);
+			response.setHeader("Cache-Control", "no-cache");
+			response.setHeader("Pragma", "no-cache");
+			// 6.通知客户机以图片方式打开发送过去的数据
+			response.setHeader("Content-Type", "image/jpeg");
+			// 1.在内存中创建一副图片
+			BufferedImage image = new BufferedImage(60, 30,
+					BufferedImage.TYPE_INT_RGB);
+			// 2.向图片上写数据
+			Graphics g = image.getGraphics();
+			// 设背景色
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, 60, 30);
+			// 3.设置写入数据的颜色和字体
+			g.setColor(Color.RED);
+			g.setFont(new Font(null, Font.BOLD, 20));
+			// 4.向图片上写数据
+			String num = makeNum();
+			//这句话就是把随机生成的数值，保存到session
+			request.getSession().setAttribute("checkcode", num); 通过session就可以直接去到随即生成的验证码了
+			g.drawString(num, 0, 20);
+			// 5.把写好数据的图片输出给浏览器
+			ImageIO.write(image, "jpg", response.getOutputStream());
+		}
+		//该函数时随机生成7位数字
+		public String makeNum() {
+			Random r = new Random();
+			//9999999 可以生成7位
+			String num = r.nextInt(9999) + ""; 
+			StringBuffer sb = new StringBuffer();
+			//如果不够4位，前面补零
+			for (int i = 0; i < 4 - num.length(); i++) {
+				sb.append("0");
+			}
+			num = sb.toString() + num;
+			return num;
+		}
+		public void doPost(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			doGet(request, response);
+		}
+	}
+
+如何使用
+Login.java
+<img src=”/验证码的url”/>
