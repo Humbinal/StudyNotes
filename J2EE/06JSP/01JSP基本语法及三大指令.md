@@ -25,6 +25,25 @@ page指令常用属性：
     
 	pageEncoding：指定Servlet引擎以什么编码翻译。JSP页面的字符编码 ，默认值为pageEncoding="iso-8859-1"，例如pageEncoding="gb2312"。    
 	isELIgnored：指定EL（表达式语言）是否被忽略。如果为true，则容器忽略"${}"表达式的计算。默认值由web.xml描述文件的版本确定，servlet2.3以前的版本将忽略。例如isELIgnored="true"。
+	
+page指令的pageEncoding和contentType（重点）  
+
+pageEncoding指定当前JSP页面的编码！这个编码是给服务器看的，服务器需要知道当前JSP使用的编码，不然服务器无法正确把JSP编译成java文件。所以这个编码只需要与真实的页面编码一致即可！在MyEclipse中，在JSP文件上点击右键，选择属性就可以看到当前JSP页面的编码了。
+
+contentType属性与response.setContentType()方法的作用相同！它会完成两项工作，一是设置响应字符流的编码，二是设置content-type响应头。
+例如：<%@ contentType=”text/html;charset=utf-8”%>，它会使“真身”中出现response.setContentType(“text/html;charset=utf-8”)。
+
+无论是page指令的pageEncoding还是contentType，它们的默认值都是ISO-8859-1，我们知道ISO-8859-1是无法显示中文的，所以JSP页面中存在中文的话，一定要设置这两个属性。
+
+其实pageEncoding和contentType这两个属性的关系很“暧昧”：
+	当设置了pageEncoding，而没设置contentType时： contentType的默认值为pageEncoding；
+	当设置了contentType，而没设置pageEncoding时： pageEncoding的默认值与contentType；
+
+也就是说，当pageEncoding和contentType只出现一个时，那么另一个的值与出现的值相同。如果两个都不出现，那么两个属性的值都是ISO-8859-1。所以通过我们至少设置它们两个其中一个！
+	
+	
+	
+	
 
 (2). include指令   <%@ include file="filename"%>
 
@@ -66,33 +85,3 @@ page指令常用属性：
 
 	<%  %> 定义的是局部的变量的，<%!  %>是定义的全局变量方法
 	<%!   %>里声明的变量和方法都是作为类的属性和方法存在的，<%   %>里不能声明方法。  而<%  %>里声明的变量则是作为_jspService这个方法的内部属性
-
-
-###3.动作元素 --动作元素是使用xml语法写的,是jsp规定的一系列标准动作
-
-1. <jsp:useBean> //创建一个javabean实例
-2. <jsp:setProperty> //给一个javabean实例设置初始值
-3. <jsp:param> //给一个jsp设置参数，常常与<jsp:include>结合使用
-	<jsp:include papge="info.jsp">
-	<jsp:param name="parameter1" value="parameterValue"/>
-	<jsp:param name="parameter2" value="parameterValue"/>
-	</jsp:include>
-4. <jsp:getProperty>   //取得一个javabean实例的成员变量    
-5. <jsp:include> //引入另外一个文件
-6. <jsp:plugin> //使用插件
-7. <jsp:forward> //转发
-8. <jsp:fallback> //
-
-<jsp:forward file="">
-在jsp开发过程中，我们通常把jsp放入WEB-INF目录中，目的是为了防止用户直接访问这些jsp文件。
-在WebRoot下我们放置一个入口页面，将它用来转发
-<jsp:forword file="/WEB-INF/xx.jsp"></jsp:forword>
-
-<%@ include file="" %> 静态引入
-<jsp:include page="" ></jsp:forword> 动态引入
-相同点：把一个文件引入到另一个文件
-区别：静态引入 把两个jsp翻译成一个servlet，所以被引入的文件不要包含body、html等公共元素
-动态引入 两个jsp会分别翻译成servlet，所以可以包含html、body等
-
-jsp的运行原理：
-如果是第一次访问，jsp文件被服务器翻译成对应的java文件（servlet）然后在被编译成.class文件并加载到内存中。所以第一次访问速度比较慢，但是第二次访问时速度就会很快了.
