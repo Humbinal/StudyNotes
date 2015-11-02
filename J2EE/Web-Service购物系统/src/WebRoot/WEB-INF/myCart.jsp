@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.humbinal.domain.Book" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -42,30 +42,26 @@
 					<th>数量</th>
 					<th>是否购买</th>
 				</tr>
-				<tr>
-					<td>001</td>
-					<td>JAVA</td>
-					<td>100</td>
-					<td>电子工业出版社</td>
-					<td><input type="text" value="3" /></td>
+				<% //从request中取出商品信息
+					ArrayList arrayList=(ArrayList)request.getAttribute("booklist");
+					for(int i=0;i<arrayList.size();i++){
+						Book book=(Book)arrayList.get(i);
+					%>	
+					<tr>
+					<td><%=book.getId() %></td>
+					<td><%=book.getName() %></td>
+					<td><%=book.getPrice() %></td>
+					<td><%=book.getPublishHouse() %></td>
+					<td><input type="text" value="<%=book.getShoppingCount() %>" /></td>
 					<td><a href="#">删除</a></td>
 				</tr>
-				<tr>
-					<td>002</td>
-					<td>JSP</td>
-					<td>50</td>
-					<td>北京出版社</td>
-					<td><input type="text" value="1" /></td>
-					<td><a href="#">删除</a></td>
-				</tr>
-				<tr>
-					<td>003</td>
-					<td>JavaWeb</td>
-					<td>200</td>
-					<td>清华大学出版社</td>
-					<td><input type="text" value="4" /></td>
-					<td><a href="#">删除</a></td>
-				</tr>
+						
+					<%	
+					}
+				 %>
+				
+				
+				
 			</table>
 
 			<nav>
@@ -86,7 +82,7 @@
 			</nav>
 
 			<input type="submit" class="btn btn-primary" value="更新购物车"> <span>总价：<span
-				class="red">256</span>元
+				class="red">${totalPrice}</span>元
 			</span>
 		</form>
 		<input type="button" class="btn btn-warning" value="清空购物车"></input> <input

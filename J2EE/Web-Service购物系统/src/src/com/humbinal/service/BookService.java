@@ -10,6 +10,25 @@ import com.humbinal.utils.SqlHelper;
 //处理和book表相关的逻辑
 public class BookService {
 
+	
+	//根据书的编号返回Book实例
+	public Book getBookById(String id){
+		Book book=new Book();
+		String sql="select * from book where id=?";
+		String paras[]={id};
+		ArrayList arrayList=new SqlHelper().executeQuery(sql,paras);
+		if (arrayList.size()==1) {
+			Object [] object=(Object[]) arrayList.get(0);
+			book.setId(Integer.parseInt(object[0].toString()));
+			book.setName(object[1].toString());
+			book.setAuthor(object[2].toString());
+			book.setPublishHouse(object[3].toString());
+			book.setPrice(Float.parseFloat(object[4].toString()));
+			book.setBookCount(Integer.parseInt(object[5].toString()));
+		}
+		return book;
+	}
+	
 	//得到所有的书籍信息，（分页）
 	public ArrayList getAllBook(){
 		

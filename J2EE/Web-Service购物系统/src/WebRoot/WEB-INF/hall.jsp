@@ -52,7 +52,7 @@
 				<td><%=book.getName()%></td>
 				<td><%=book.getPrice()%></td>
 				<td><%=book.getPublishHouse()%></td>
-				<td><a href="#">购买</a></td>
+				<td><a href="/shopping/GoMyCart?id=<%=book.getId() %>">购买</a></td>
 			</tr>
 			<%
 				}

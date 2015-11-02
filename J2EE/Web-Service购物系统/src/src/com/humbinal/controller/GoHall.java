@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.humbinal.domain.Book;
 import com.humbinal.domain.Users;
 import com.humbinal.service.BookService;
+import com.humbinal.service.MyCart;
 import com.humbinal.service.UsersService;
 
 /**
@@ -40,24 +41,31 @@ public class GoHall extends HttpServlet {
 		
 		String userId=request.getParameter("userId");
 		String password=request.getParameter("password");
-		
-		//System.out.println("id="+userId+"  pass="+password);
-		
-		Users loginUser=new Users(Integer.parseInt(userId),password);
-		//System.out.println();
-		//使用业务逻辑类完成用户验证
-		UsersService usersService=new UsersService();
-		if (usersService.checkUser(loginUser)) {
-			//验证数据符合跳转到下一页面
-			//给下一个页面准备数据
-			BookService bookService=new BookService();
-			ArrayList<Book> arrayList=bookService.getAllBook();
-			//将数据放入request域对象中，应为该域对象生命周期最短，节省开支
-			request.setAttribute("books", arrayList);		
-			request.getRequestDispatcher("/WEB-INF/hall.jsp").forward(request, response);
-		}else {
+		if (!(userId==null||password==null)) {
+			//System.out.println("id="+userId+"  pass="+password);
+			
+			Users loginUser=new Users(Integer.parseInt(userId),password);
+			//System.out.println();
+			//使用业务逻辑类完成用户验证
+			UsersService usersService=new UsersService();
+			if (usersService.checkUser(loginUser)) {
+				//验证数据符合跳转到下一页面
+				//创建一个购物车
+				MyCart myCart=new MyCart();
+				request.getSession().setAttribute("myCart", myCart);
+				//给下一个页面准备数据
+				BookService bookService=new BookService();
+				ArrayList<Book> arrayList=bookService.getAllBook();
+				//将数据放入request域对象中，应为该域对象生命周期最短，节省开支
+				request.setAttribute("books", arrayList);		
+				request.getRequestDispatcher("/WEB-INF/hall.jsp").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+			}
+		}else{
 			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 		}
+		
 		
 	}
 

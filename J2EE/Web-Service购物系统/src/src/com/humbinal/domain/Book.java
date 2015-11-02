@@ -13,7 +13,8 @@ public class Book {
 	private String author;
 	private String publishHouse;
 	private float price;
-	private int bookCount;
+	private int bookCount;//表示库存
+	private int shoppingCount=1; //购买的数量，用于购物车中数量的展示，数据库不存储该字段
 	public int getId() {
 		return id;
 	}
@@ -49,6 +50,12 @@ public class Book {
 	}
 	public void setBookCount(int bookCount) {
 		this.bookCount = bookCount;
+	}
+	public int getShoppingCount() {
+		return shoppingCount;
+	}
+	public void setShoppingCount(int shoppingCount) {
+		this.shoppingCount = shoppingCount;
 	}
 	
 
