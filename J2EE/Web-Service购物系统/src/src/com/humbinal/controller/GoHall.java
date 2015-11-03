@@ -38,6 +38,17 @@ public class GoHall extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out=response.getWriter();
+		//判断该用户是否已经登录，如果登录则直接去购物大厅，否则验证用户
+		if (request.getSession().getAttribute("loginUser")!=null) {
+			BookService bookService=new BookService();
+			ArrayList<Book> arrayList=bookService.getAllBook();
+			//将数据放入request域对象中，应为该域对象生命周期最短，节省开支
+			request.setAttribute("books", arrayList);		
+			request.getRequestDispatcher("/WEB-INF/hall.jsp").forward(request, response);
+			return;
+		}
+		
+		
 		
 		String userId=request.getParameter("userId");
 		String password=request.getParameter("password");
@@ -53,6 +64,7 @@ public class GoHall extends HttpServlet {
 				//创建一个购物车
 				MyCart myCart=new MyCart();
 				request.getSession().setAttribute("myCart", myCart);
+				request.getSession().setAttribute("loginUser", loginUser);
 				//给下一个页面准备数据
 				BookService bookService=new BookService();
 				ArrayList<Book> arrayList=bookService.getAllBook();

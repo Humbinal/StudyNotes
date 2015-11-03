@@ -30,8 +30,7 @@
 <body>
 	<div class="container">
 		<h1 id="title">我的购物车</h1>
-		<input type="button" class="btn btn-primary" id="showCart"
-			value="查看购物车"></input>
+		<a href="/shopping/GoHall" class="btn btn-primary" id="backToHall">返回购物大厅</a>
 		<form action="" method="post">
 			<table class="table table-hover" id="myCart">
 				<tr>
@@ -53,7 +52,7 @@
 					<td><%=book.getPrice() %></td>
 					<td><%=book.getPublishHouse() %></td>
 					<td><input type="text" value="<%=book.getShoppingCount() %>" /></td>
-					<td><a href="#">删除</a></td>
+					<td><a href="/shopping/GoMyCart?type=delete&id=<%=book.getId() %>">删除</a></td>
 				</tr>
 						
 					<%	

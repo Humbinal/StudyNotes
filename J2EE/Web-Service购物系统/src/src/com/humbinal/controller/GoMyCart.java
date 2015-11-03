@@ -35,19 +35,48 @@ public class GoMyCart extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out=response.getWriter();
-		//接收用户想要 购买的书的id
-		String id=request.getParameter("id");
-		//System.out.println(id);
-		//何时创建购物车？？（当用户登录后为其分配一个购物车）
-		//取出购物车并添加书进去
-		MyCart myCart=(MyCart)request.getSession().getAttribute("myCart");
-		//添加上商品到购物车
-		myCart.addBook(id);
-		//跳转到购物车页面
-		//将购物车数据取出给下个页面显示
-		request.setAttribute("booklist", myCart.showMyCart());
-		request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
-		request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);
+		
+		//接收type值，判断用户请求
+		
+		String type=request.getParameter("type");
+		
+		if (type.equals("add")) {
+			
+			//接收用户想要 购买的书的id
+			String id=request.getParameter("id");
+			//System.out.println(id);
+			//何时创建购物车？？（当用户登录后为其分配一个购物车）
+			//取出购物车并添加书进去
+			MyCart myCart=(MyCart) request.getSession().getAttribute("myCart");
+			//添加上商品到购物车
+			myCart.addBook(id);
+			//跳转到购物车页面
+			//将购物车数据取出给下个页面显示
+			request.setAttribute("booklist", myCart.showMyCart());
+			request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
+			request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);					
+		} else if (type.equals("delete")) {
+			//从购物车删除商品
+			String id=request.getParameter("id");
+			MyCart myCart=(MyCart) request.getSession().getAttribute("myCart");
+			myCart.deleteBook(id);
+			
+			request.setAttribute("booklist", myCart.showMyCart());
+			request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
+			request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);
+		}else if (type.equals("showMyCart")) {
+			
+			MyCart myCart=(MyCart) request.getSession().getAttribute("myCart");
+			request.setAttribute("booklist", myCart.showMyCart());
+			request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
+			request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);
+		} 
+		
+		
+		
+		
+		
+		
 	}
 
 	/**

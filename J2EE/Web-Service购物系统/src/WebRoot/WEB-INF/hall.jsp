@@ -32,8 +32,7 @@
 	<div class="container">
 		<h1 id="title">欢迎光临网上售书系统！</h1>
 		<a href="/shopping/index.jsp" class="btn btn-primary" id="logout">退出</a>
-		<input type="button" class="btn btn-primary" id="showCart"
-			value="查看购物车"></input>
+		<a href="/shopping/GoMyCart?type=showMyCart" class="btn btn-primary" id="showCart">查看购物车</a>
 			
 		<table class="table table-hover">
 			<tr>
@@ -52,7 +51,7 @@
 				<td><%=book.getName()%></td>
 				<td><%=book.getPrice()%></td>
 				<td><%=book.getPublishHouse()%></td>
-				<td><a href="/shopping/GoMyCart?id=<%=book.getId() %>">购买</a></td>
+				<td><a href="/shopping/GoMyCart?type=add&id=<%=book.getId() %>">购买</a></td>
 			</tr>
 			<%
 				}

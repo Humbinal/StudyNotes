@@ -49,7 +49,7 @@ public class MyCart {
 		
 	}*/
 	//删除书
-	public void deleteBook(String id ,Book book){
+	public void deleteBook(String id){
 		hashMap.remove(id);
 	}
 	

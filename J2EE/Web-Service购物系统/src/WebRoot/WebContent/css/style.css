@@ -12,6 +12,9 @@
 	float:right;
 	margin-left: 1rem;
 }
+#backToHall{
+	float:right;
+}
 #myCart tr td input {
 	width: 3rem;
 }
