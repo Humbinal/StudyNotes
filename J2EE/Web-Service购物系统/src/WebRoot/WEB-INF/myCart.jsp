@@ -31,7 +31,7 @@
 	<div class="container">
 		<h1 id="title">我的购物车</h1>
 		<a href="/shopping/GoHall" class="btn btn-primary" id="backToHall">返回购物大厅</a>
-		<form action="" method="post">
+		<form action="/shopping/GoMyCart?type=update" method="post">
 			<table class="table table-hover" id="myCart">
 				<tr>
 					<th>书籍编号</th>
@@ -47,11 +47,11 @@
 						Book book=(Book)arrayList.get(i);
 					%>	
 					<tr>
-					<td><%=book.getId() %></td>
+					<td><%=book.getId() %><input type="hidden" name="bookId" value="<%=book.getId()%>"></td>
 					<td><%=book.getName() %></td>
 					<td><%=book.getPrice() %></td>
 					<td><%=book.getPublishHouse() %></td>
-					<td><input type="text" value="<%=book.getShoppingCount() %>" /></td>
+					<td><input type="text" name="bookCount" value="<%=book.getShoppingCount() %>" /></td>
 					<td><a href="/shopping/GoMyCart?type=delete&id=<%=book.getId() %>">删除</a></td>
 				</tr>
 						
@@ -84,8 +84,8 @@
 				class="red">${totalPrice}</span>元
 			</span>
 		</form>
-		<input type="button" class="btn btn-warning" value="清空购物车"></input> <input
-			type="button" class="btn btn-success" value="提交订单"></input>
+		<input type="button" class="btn btn-warning" value="清空购物车"></input> 
+		<a href="/shopping/GoMyOrder" class="btn btn-success">提交订单</a>
 
 	</div>
 </body>

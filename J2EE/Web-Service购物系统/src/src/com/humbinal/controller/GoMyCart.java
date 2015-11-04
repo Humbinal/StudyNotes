@@ -70,6 +70,20 @@ public class GoMyCart extends HttpServlet {
 			request.setAttribute("booklist", myCart.showMyCart());
 			request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
 			request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);
+		} else if (type.equals("update")) {
+			//获取更新的书籍信息
+			String bookIds[]=request.getParameterValues("bookId");
+			String bookCounts[]=request.getParameterValues("bookCount");
+			//更新购买书籍的数量
+			MyCart myCart=(MyCart) request.getSession().getAttribute("myCart");
+			for (int i = 0; i < bookCounts.length; i++) {
+				//System.out.println(bookIds[i]+"    "+bookCounts[i]);
+				myCart.updateBook(bookIds[i], bookCounts[i]);
+			}
+			
+			request.setAttribute("booklist", myCart.showMyCart());
+			request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
+			request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);
 		} 
 		
 		

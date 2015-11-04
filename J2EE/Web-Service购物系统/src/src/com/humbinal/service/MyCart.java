@@ -55,7 +55,8 @@ public class MyCart {
 	
 	//更新书
 	public void updateBook(String id ,String numbers){
-		
+		Book book=hashMap.get(id);
+		book.setShoppingCount(Integer.parseInt(numbers));
 	}
 	
 	//清空购物车
@@ -64,7 +65,7 @@ public class MyCart {
 		
 	}
 	
-	//显示购物车中所有商品的信息
+	//返回购物车中所有商品的信息
 	public ArrayList showMyCart() {
 		ArrayList<Book> arrayList=new ArrayList<Book>();
 		//遍历HashMap
