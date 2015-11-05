@@ -9,6 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
+import com.humbinal.domain.Users;
+import com.humbinal.service.MyCart;
+import com.humbinal.service.OrderService;
+
 /**
  * Servlet implementation class SubmitOrder
  */
@@ -31,6 +37,17 @@ public class SubmitOrder extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out=response.getWriter();
+		
+		try {
+			OrderService orderService=new OrderService();
+			MyCart myCart=(MyCart) request.getSession().getAttribute("myCart");
+			Users users=(Users) request.getSession().getAttribute("loginUser");
+			orderService.submitOrder(myCart, users);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
 		
 		request.getRequestDispatcher("/WEB-INF/orderFinish.jsp").forward(request, response);
 	}
