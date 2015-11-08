@@ -9,8 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'orderFinish.jsp' starting page</title>
-    
+    <title>My JSP 'index.jsp' starting page</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -19,16 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
   </head>
   
   <body>
-    <%
-     String email=(String)request.getAttribute("email");
-     if(email==null){
-     email="出现异常";
-     }
-     %>
-     <h3>你的订单提交成功，通知邮件发送<%=email %>，谢谢您的购物，欢迎下次再来！</h3>
+    This is my JSP page. <br>
   </body>
 </html>

@@ -1,28 +1,31 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>欢迎登录网上售书系统！</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	
-	<link rel="stylesheet" type="text/css" href="WebContent/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="WebContent/css/style.css">
+<head>
+<base href="<%=basePath%>">
 
-  </head>
-  
-  <body>
+<title>欢迎登录网上售书系统！</title>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+
+<link rel="stylesheet" type="text/css"
+	href="WebContent/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="WebContent/css/style.css">
+
+</head>
+
+<body>
 	<div class="container">
 		<h1>欢迎光临网上售书系统！</h1>
 		<form action="/shopping/GoHall" method="post">
@@ -42,8 +45,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						name="password" />
 				</div>
 			</div>
-			<input type="button" class="btn btn-warning" value="取消" /> <input
-				type="submit" class="btn btn-primary" value="登录" />
+			<div class="form-group row">
+				<label for="inputVerifyCode" class="col-sm-1 form-control-label">验证码</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="inputVerifyCode"
+						name="verifyCode" />
+				</div>
+				<img id="imgVerifyCode" alt="请输入验证码" src="/shopping/GetVerifyCode">
+				<a href="javascript:changeVerifyCode();" class="btn btn-warning">看不清</a>
+			</div>
+			<span class="red">${err }</span><br/> 
+			<input type="button" class="btn btn-warning" value="取消" /> 
+			<input type="submit" class="btn btn-primary" value="登录" />
+		</form>
 	</div>
+	<script type="text/javascript" src="WebContent/js/main.js"></script>
 </body>
 </html>

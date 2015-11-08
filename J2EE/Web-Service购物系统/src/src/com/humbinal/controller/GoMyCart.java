@@ -52,9 +52,10 @@ public class GoMyCart extends HttpServlet {
 			myCart.addBook(id);
 			//跳转到购物车页面
 			//将购物车数据取出给下个页面显示
-			request.setAttribute("booklist", myCart.showMyCart());
-			request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
-			request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);					
+			//request.setAttribute("booklist", myCart.showMyCart());
+			//request.setAttribute("totalPrice", myCart.getTotalPrice()+"");
+			response.sendRedirect("/shopping/GoShowMyCart");
+			//request.getRequestDispatcher("/WEB-INF/myCart.jsp").forward(request, response);					
 		} else if (type.equals("delete")) {
 			//从购物车删除商品
 			String id=request.getParameter("id");
