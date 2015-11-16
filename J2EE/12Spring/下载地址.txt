@@ -1,0 +1,1 @@
+https://repo.spring.io/webapp/#/artifacts/browse/simple/General/libs-release-local/org/springframework/spring
