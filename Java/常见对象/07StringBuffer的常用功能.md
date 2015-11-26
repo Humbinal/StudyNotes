@@ -139,7 +139,7 @@ Demo：
     	System.out.println("---------------");
     	// StringBuffer -->String
     	StringBuffer buffer = new StringBuffer("java");
-    	// String(StringBuffer buffer)
+    	// String(StringBuffer buffer)//String类的一个构造方法
     	// 方式1:通过构造方法
     	String str = new String(buffer);
     	// 方式2：通过toString()方法
