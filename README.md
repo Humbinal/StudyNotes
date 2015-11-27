@@ -1,8 +1,5 @@
 # StudyNotes
-This is my study notes about development.
+This is my study notes.
 
-##notes.
 
-###test pull
 
-###test name3
